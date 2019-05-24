@@ -1,0 +1,9 @@
+C:\Users\Test01\source\repos\UartApp\UartApp\bin\Debug\UartApp.exe
+C:\Users\Test01\source\repos\UartApp\UartApp\bin\Debug\UartApp.pdb
+C:\Users\Test01\source\repos\UartApp\UartApp\obj\Debug\UartApp.csprojAssemblyReference.cache
+C:\Users\Test01\source\repos\UartApp\UartApp\obj\Debug\UartApp.Form1.resources
+C:\Users\Test01\source\repos\UartApp\UartApp\obj\Debug\UartApp.Properties.Resources.resources
+C:\Users\Test01\source\repos\UartApp\UartApp\obj\Debug\UartApp.csproj.GenerateResource.cache
+C:\Users\Test01\source\repos\UartApp\UartApp\obj\Debug\UartApp.csproj.CoreCompileInputs.cache
+C:\Users\Test01\source\repos\UartApp\UartApp\obj\Debug\UartApp.exe
+C:\Users\Test01\source\repos\UartApp\UartApp\obj\Debug\UartApp.pdb

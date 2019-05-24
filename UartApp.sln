@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UartApp", "UartApp\UartApp.csproj", "{2B92CE6C-DBEA-4007-B3A0-966A5356748A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B92CE6C-DBEA-4007-B3A0-966A5356748A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B92CE6C-DBEA-4007-B3A0-966A5356748A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B92CE6C-DBEA-4007-B3A0-966A5356748A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B92CE6C-DBEA-4007-B3A0-966A5356748A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D3BC0CA4-1CBF-4BA0-8C1C-BAF7F2C60A56}
+	EndGlobalSection
+EndGlobal
