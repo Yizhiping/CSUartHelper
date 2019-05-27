@@ -17,7 +17,8 @@ namespace UartApp
 
         private long TxCounter = 0;
         private long RxCounter = 0;
-        private StringBuilder sb;
+        private StringBuilder sb = new StringBuilder();
+        private DateTime current_time = DateTime.Now;
 
         public Form1()
         {
@@ -121,11 +122,34 @@ namespace UartApp
 
         private void BtnSend_Click(object sender, EventArgs e)
         {
+            string SendBuff = SndBuff.Text;
+            
+            if(SndHEX.Checked)
+            {
+                SendBuff = SendBuff.Replace(" ", "");       //删除空格
+                if (SendBuff.Length % 2 != 0) SendBuff = "0" + SendBuff;    //单数个字符的时候自动添加前置0
+                byte[] SndArr = new byte[SendBuff.Length / 2];
+
+                for (int i = 0; i< SendBuff.Length / 2; i++)
+                {
+                    SndArr[i] = Convert.ToByte(SendBuff.Substring(i * 2, 2),16);
+                }
+
+                SendBuff = System.Text.Encoding.Default.GetString(SndArr);
+            }
+
+            if (SndNewLine.Checked) SendBuff += "\n";       //自动发送回车
+
+            TxCounter += SendBuff.Length;
+
+
             try
             {
                 if (sp.IsOpen)
                 {
-                    sp.WriteLine(SndBuff.Text);
+
+                    sp.Write(SendBuff);
+                    TxCountShow.Text = string.Format("TX: {0} Bytes", TxCounter);
                     Message.Text = "发送成功.";
                 } else
                 {
@@ -145,29 +169,55 @@ namespace UartApp
 
         private void sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if(RecHEX.Checked)
-            {
-                int num = sp.BytesToRead;
-                byte[] recBuff = new byte[num];
+            //计数
+            int num = sp.BytesToRead;
+            RxCounter += num;
+            string ShowBuff = "";
 
-                RxCounter += num;
-                sp.Read(recBuff, 0, num);
-                sb.Clear();
-                foreach(byte b in recBuff)
+            //接收数据
+            byte[] recBuff = new byte[num];
+            sp.Read(recBuff, 0, num);
+            sb.Clear();
+
+
+            //转换十六进制
+            if (RecHEX.Checked)      
+            {
+                //ShowBuff = recBuff.ToString("X2");
+                foreach(int b in recBuff)
                 {
-                    sb.Append(b.ToString());
+                    ShowBuff += b.ToString("X2") + " ";
                 }
+            } else
+            {
+                ShowBuff = Encoding.ASCII.GetString(recBuff);
             }
+
+            //显示接收时间
+            if(ShowRecTime.Checked)
+            {
+                current_time = DateTime.Now;
+                ShowBuff = current_time.ToString("[HH:mm:ss.fff]") + " \n" + ShowBuff + "\n"; 
+            }
+
+            //自动转行
+            if(addNewlineReceved.Checked)
+            {
+                ShowBuff += "\n"; 
+            }
+
 
             try
             {
 
                 this.Invoke((EventHandler)(delegate
                 {
-                    RecBuff.AppendText(sp.ReadExisting());
+                    RxCountShow.Text = string.Format("RX: {0} Bytes", RxCounter);       //更新接收字节数
+                    RecBuff.AppendText(ShowBuff);   //更新显示内容
+                    
                 }
-   )
-);
+                   )
+                );
 
                 // RecBuff.AppendText(sp.ReadExisting());
             } catch(Exception ex)
@@ -186,6 +236,47 @@ namespace UartApp
         private void BtnClearRecBuff_Click(object sender, EventArgs e)
         {
             RecBuff.Text = "";
+        }
+
+        private void BtnResetCounter_Click(object sender, EventArgs e)
+        {
+            RxCounter = TxCounter = 0;
+            RxCountShow.Text = "RX: 0 Bytes";
+            TxCountShow.Text = "TX: 0 Bytes";
+        }
+
+        private void addNowLine(object sender, EventArgs e)
+        {
+            if(ShowRecTime.Checked)
+            {
+                RecBuff.AppendText("\n");
+            }
+        }
+
+        private void BtnClearSndBuff_Click(object sender, EventArgs e)
+        {
+            SndBuff.Text = "";
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            BtnSend_Click(BtnSend, new EventArgs());
+        }
+
+        private void AutoSend_CheckedChanged(object sender, EventArgs e)
+        {
+            if (AutoSend.Checked)
+            {
+                timer1.Interval = (int)(AutoSendDelay.Value);
+                btnClearSndBuff.Enabled = BtnSend.Enabled = SndBuff.Enabled =  AutoSendDelay.Enabled = false;
+                timer1.Start();
+                Message.Text = "自动发送中....";
+            } else
+            {
+                timer1.Stop();
+                Message.Text = "自动发送停止....";
+                btnClearSndBuff.Enabled = BtnSend.Enabled = SndBuff.Enabled = AutoSendDelay.Enabled = true;
+            }
         }
     }
 }

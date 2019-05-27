@@ -1,0 +1,9 @@
+E:\UartApp\UartApp\bin\Release\UartApp.exe
+E:\UartApp\UartApp\bin\Release\UartApp.pdb
+E:\UartApp\UartApp\obj\Release\UartApp.csprojAssemblyReference.cache
+E:\UartApp\UartApp\obj\Release\UartApp.Form1.resources
+E:\UartApp\UartApp\obj\Release\UartApp.Properties.Resources.resources
+E:\UartApp\UartApp\obj\Release\UartApp.csproj.GenerateResource.cache
+E:\UartApp\UartApp\obj\Release\UartApp.csproj.CoreCompileInputs.cache
+E:\UartApp\UartApp\obj\Release\UartApp.exe
+E:\UartApp\UartApp\obj\Release\UartApp.pdb

@@ -7,3 +7,11 @@ C:\Users\Test01\source\repos\UartApp\UartApp\obj\Debug\UartApp.csproj.GenerateRe
 C:\Users\Test01\source\repos\UartApp\UartApp\obj\Debug\UartApp.csproj.CoreCompileInputs.cache
 C:\Users\Test01\source\repos\UartApp\UartApp\obj\Debug\UartApp.exe
 C:\Users\Test01\source\repos\UartApp\UartApp\obj\Debug\UartApp.pdb
+E:\UartApp\UartApp\bin\Debug\UartApp.exe
+E:\UartApp\UartApp\bin\Debug\UartApp.pdb
+E:\UartApp\UartApp\obj\Debug\UartApp.Form1.resources
+E:\UartApp\UartApp\obj\Debug\UartApp.Properties.Resources.resources
+E:\UartApp\UartApp\obj\Debug\UartApp.csproj.GenerateResource.cache
+E:\UartApp\UartApp\obj\Debug\UartApp.csproj.CoreCompileInputs.cache
+E:\UartApp\UartApp\obj\Debug\UartApp.exe
+E:\UartApp\UartApp\obj\Debug\UartApp.pdb

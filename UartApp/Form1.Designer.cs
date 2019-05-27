@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnOpenPort = new System.Windows.Forms.Button();
             this.StopBit = new System.Windows.Forms.ComboBox();
@@ -42,8 +43,23 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.addNewlineReceved = new System.Windows.Forms.CheckBox();
+            this.btnClearRecBuff = new System.Windows.Forms.Button();
+            this.ShowRecTime = new System.Windows.Forms.CheckBox();
+            this.RecHEX = new System.Windows.Forms.RadioButton();
+            this.RecASCII = new System.Windows.Forms.RadioButton();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnClearSndBuff = new System.Windows.Forms.Button();
+            this.AutoSendDelay = new System.Windows.Forms.NumericUpDown();
+            this.AutoSend = new System.Windows.Forms.CheckBox();
+            this.SndNewLine = new System.Windows.Forms.CheckBox();
+            this.SndHEX = new System.Windows.Forms.RadioButton();
+            this.SndASCII = new System.Windows.Forms.RadioButton();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.btnResetCounter = new System.Windows.Forms.Button();
+            this.RxCountShow = new System.Windows.Forms.TextBox();
+            this.TxCountShow = new System.Windows.Forms.TextBox();
+            this.Message = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.RecBuff = new System.Windows.Forms.TextBox();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -51,25 +67,13 @@
             this.SndBuff = new System.Windows.Forms.TextBox();
             this.sp = new System.IO.Ports.SerialPort(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.RecASCII = new System.Windows.Forms.RadioButton();
-            this.RecHEX = new System.Windows.Forms.RadioButton();
-            this.ShowRecTime = new System.Windows.Forms.CheckBox();
-            this.btnClearRecBuff = new System.Windows.Forms.Button();
-            this.SndHEX = new System.Windows.Forms.RadioButton();
-            this.SndASCII = new System.Windows.Forms.RadioButton();
-            this.SndNewLine = new System.Windows.Forms.CheckBox();
-            this.AutoSend = new System.Windows.Forms.CheckBox();
-            this.AutoSendDelay = new System.Windows.Forms.NumericUpDown();
-            this.Message = new System.Windows.Forms.TextBox();
-            this.TxCountShow = new System.Windows.Forms.TextBox();
-            this.RxCountShow = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AutoSendDelay)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AutoSendDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -189,37 +193,202 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.addNewlineReceved);
             this.panel2.Controls.Add(this.btnClearRecBuff);
             this.panel2.Controls.Add(this.ShowRecTime);
             this.panel2.Controls.Add(this.RecHEX);
             this.panel2.Controls.Add(this.RecASCII);
             this.panel2.Location = new System.Drawing.Point(12, 207);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(164, 134);
+            this.panel2.Size = new System.Drawing.Size(164, 109);
             this.panel2.TabIndex = 1;
+            // 
+            // addNewlineReceved
+            // 
+            this.addNewlineReceved.AutoSize = true;
+            this.addNewlineReceved.Checked = true;
+            this.addNewlineReceved.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.addNewlineReceved.Location = new System.Drawing.Point(9, 36);
+            this.addNewlineReceved.Name = "addNewlineReceved";
+            this.addNewlineReceved.Size = new System.Drawing.Size(110, 17);
+            this.addNewlineReceved.TabIndex = 4;
+            this.addNewlineReceved.Text = "接收完自动换行";
+            this.addNewlineReceved.UseVisualStyleBackColor = true;
+            // 
+            // btnClearRecBuff
+            // 
+            this.btnClearRecBuff.Location = new System.Drawing.Point(9, 79);
+            this.btnClearRecBuff.Name = "btnClearRecBuff";
+            this.btnClearRecBuff.Size = new System.Drawing.Size(134, 25);
+            this.btnClearRecBuff.TabIndex = 3;
+            this.btnClearRecBuff.Text = "清空接收区";
+            this.btnClearRecBuff.UseVisualStyleBackColor = true;
+            this.btnClearRecBuff.Click += new System.EventHandler(this.BtnClearRecBuff_Click);
+            // 
+            // ShowRecTime
+            // 
+            this.ShowRecTime.AutoSize = true;
+            this.ShowRecTime.Location = new System.Drawing.Point(9, 57);
+            this.ShowRecTime.Name = "ShowRecTime";
+            this.ShowRecTime.Size = new System.Drawing.Size(122, 17);
+            this.ShowRecTime.TabIndex = 2;
+            this.ShowRecTime.Text = "显示数据接收时间";
+            this.ShowRecTime.UseVisualStyleBackColor = true;
+            this.ShowRecTime.CheckedChanged += new System.EventHandler(this.addNowLine);
+            // 
+            // RecHEX
+            // 
+            this.RecHEX.AutoSize = true;
+            this.RecHEX.Location = new System.Drawing.Point(91, 10);
+            this.RecHEX.Name = "RecHEX";
+            this.RecHEX.Size = new System.Drawing.Size(47, 17);
+            this.RecHEX.TabIndex = 1;
+            this.RecHEX.Text = "HEX";
+            this.RecHEX.UseVisualStyleBackColor = true;
+            this.RecHEX.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
+            // 
+            // RecASCII
+            // 
+            this.RecASCII.AutoSize = true;
+            this.RecASCII.Checked = true;
+            this.RecASCII.Location = new System.Drawing.Point(9, 10);
+            this.RecASCII.Name = "RecASCII";
+            this.RecASCII.Size = new System.Drawing.Size(52, 17);
+            this.RecASCII.TabIndex = 0;
+            this.RecASCII.TabStop = true;
+            this.RecASCII.Text = "ASCII";
+            this.RecASCII.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.btnClearSndBuff);
             this.panel3.Controls.Add(this.AutoSendDelay);
             this.panel3.Controls.Add(this.AutoSend);
             this.panel3.Controls.Add(this.SndNewLine);
             this.panel3.Controls.Add(this.SndHEX);
             this.panel3.Controls.Add(this.SndASCII);
-            this.panel3.Location = new System.Drawing.Point(12, 351);
+            this.panel3.Location = new System.Drawing.Point(12, 322);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(164, 77);
+            this.panel3.Size = new System.Drawing.Size(164, 105);
             this.panel3.TabIndex = 2;
+            // 
+            // btnClearSndBuff
+            // 
+            this.btnClearSndBuff.Location = new System.Drawing.Point(9, 71);
+            this.btnClearSndBuff.Name = "btnClearSndBuff";
+            this.btnClearSndBuff.Size = new System.Drawing.Size(134, 25);
+            this.btnClearSndBuff.TabIndex = 7;
+            this.btnClearSndBuff.Text = "清空发送区";
+            this.btnClearSndBuff.UseVisualStyleBackColor = true;
+            this.btnClearSndBuff.Click += new System.EventHandler(this.BtnClearSndBuff_Click);
+            // 
+            // AutoSendDelay
+            // 
+            this.AutoSendDelay.Location = new System.Drawing.Point(89, 47);
+            this.AutoSendDelay.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.AutoSendDelay.Name = "AutoSendDelay";
+            this.AutoSendDelay.Size = new System.Drawing.Size(60, 20);
+            this.AutoSendDelay.TabIndex = 6;
+            this.AutoSendDelay.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
+            // AutoSend
+            // 
+            this.AutoSend.AutoSize = true;
+            this.AutoSend.Location = new System.Drawing.Point(9, 50);
+            this.AutoSend.Name = "AutoSend";
+            this.AutoSend.Size = new System.Drawing.Size(74, 17);
+            this.AutoSend.TabIndex = 5;
+            this.AutoSend.Text = "自动发送";
+            this.AutoSend.UseVisualStyleBackColor = true;
+            this.AutoSend.CheckedChanged += new System.EventHandler(this.AutoSend_CheckedChanged);
+            // 
+            // SndNewLine
+            // 
+            this.SndNewLine.AutoSize = true;
+            this.SndNewLine.Location = new System.Drawing.Point(9, 27);
+            this.SndNewLine.Name = "SndNewLine";
+            this.SndNewLine.Size = new System.Drawing.Size(98, 17);
+            this.SndNewLine.TabIndex = 4;
+            this.SndNewLine.Text = "自动发送回车";
+            this.SndNewLine.UseVisualStyleBackColor = true;
+            // 
+            // SndHEX
+            // 
+            this.SndHEX.AutoSize = true;
+            this.SndHEX.Location = new System.Drawing.Point(91, 4);
+            this.SndHEX.Name = "SndHEX";
+            this.SndHEX.Size = new System.Drawing.Size(47, 17);
+            this.SndHEX.TabIndex = 3;
+            this.SndHEX.Text = "HEX";
+            this.SndHEX.UseVisualStyleBackColor = true;
+            // 
+            // SndASCII
+            // 
+            this.SndASCII.AutoSize = true;
+            this.SndASCII.Checked = true;
+            this.SndASCII.Location = new System.Drawing.Point(9, 4);
+            this.SndASCII.Name = "SndASCII";
+            this.SndASCII.Size = new System.Drawing.Size(52, 17);
+            this.SndASCII.TabIndex = 2;
+            this.SndASCII.TabStop = true;
+            this.SndASCII.Text = "ASCII";
+            this.SndASCII.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.btnResetCounter);
             this.panel4.Controls.Add(this.RxCountShow);
             this.panel4.Controls.Add(this.TxCountShow);
             this.panel4.Controls.Add(this.Message);
             this.panel4.Location = new System.Drawing.Point(12, 433);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(784, 44);
+            this.panel4.Size = new System.Drawing.Size(784, 25);
             this.panel4.TabIndex = 3;
+            // 
+            // btnResetCounter
+            // 
+            this.btnResetCounter.Location = new System.Drawing.Point(546, 1);
+            this.btnResetCounter.Name = "btnResetCounter";
+            this.btnResetCounter.Size = new System.Drawing.Size(79, 22);
+            this.btnResetCounter.TabIndex = 3;
+            this.btnResetCounter.Text = "复位计数";
+            this.btnResetCounter.UseVisualStyleBackColor = true;
+            this.btnResetCounter.Click += new System.EventHandler(this.BtnResetCounter_Click);
+            // 
+            // RxCountShow
+            // 
+            this.RxCountShow.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.RxCountShow.Location = new System.Drawing.Point(431, 6);
+            this.RxCountShow.Name = "RxCountShow";
+            this.RxCountShow.Size = new System.Drawing.Size(100, 13);
+            this.RxCountShow.TabIndex = 2;
+            this.RxCountShow.Text = "RX: 0 Bytes";
+            // 
+            // TxCountShow
+            // 
+            this.TxCountShow.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TxCountShow.Location = new System.Drawing.Point(324, 6);
+            this.TxCountShow.Name = "TxCountShow";
+            this.TxCountShow.Size = new System.Drawing.Size(101, 13);
+            this.TxCountShow.TabIndex = 1;
+            this.TxCountShow.Text = "TX: 0 Bytes";
+            // 
+            // Message
+            // 
+            this.Message.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Message.Location = new System.Drawing.Point(6, 6);
+            this.Message.Name = "Message";
+            this.Message.Size = new System.Drawing.Size(312, 13);
+            this.Message.TabIndex = 0;
             // 
             // panel5
             // 
@@ -251,6 +420,7 @@
             // 
             // BtnSend
             // 
+            this.BtnSend.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.BtnSend.Location = new System.Drawing.Point(546, 3);
             this.BtnSend.Name = "BtnSend";
             this.BtnSend.Size = new System.Drawing.Size(60, 64);
@@ -271,147 +441,26 @@
             // 
             this.sp.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.sp_DataReceived);
             // 
-            // RecASCII
+            // timer1
             // 
-            this.RecASCII.AutoSize = true;
-            this.RecASCII.Checked = true;
-            this.RecASCII.Location = new System.Drawing.Point(9, 13);
-            this.RecASCII.Name = "RecASCII";
-            this.RecASCII.Size = new System.Drawing.Size(52, 17);
-            this.RecASCII.TabIndex = 0;
-            this.RecASCII.TabStop = true;
-            this.RecASCII.Text = "ASCII";
-            this.RecASCII.UseVisualStyleBackColor = true;
-            // 
-            // RecHEX
-            // 
-            this.RecHEX.AutoSize = true;
-            this.RecHEX.Location = new System.Drawing.Point(91, 13);
-            this.RecHEX.Name = "RecHEX";
-            this.RecHEX.Size = new System.Drawing.Size(47, 17);
-            this.RecHEX.TabIndex = 1;
-            this.RecHEX.Text = "HEX";
-            this.RecHEX.UseVisualStyleBackColor = true;
-            this.RecHEX.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
-            // 
-            // ShowRecTime
-            // 
-            this.ShowRecTime.AutoSize = true;
-            this.ShowRecTime.Location = new System.Drawing.Point(9, 35);
-            this.ShowRecTime.Name = "ShowRecTime";
-            this.ShowRecTime.Size = new System.Drawing.Size(122, 17);
-            this.ShowRecTime.TabIndex = 2;
-            this.ShowRecTime.Text = "显示数据接收时间";
-            this.ShowRecTime.UseVisualStyleBackColor = true;
-            // 
-            // btnClearRecBuff
-            // 
-            this.btnClearRecBuff.Location = new System.Drawing.Point(9, 57);
-            this.btnClearRecBuff.Name = "btnClearRecBuff";
-            this.btnClearRecBuff.Size = new System.Drawing.Size(134, 25);
-            this.btnClearRecBuff.TabIndex = 3;
-            this.btnClearRecBuff.Text = "清空接收区";
-            this.btnClearRecBuff.UseVisualStyleBackColor = true;
-            this.btnClearRecBuff.Click += new System.EventHandler(this.BtnClearRecBuff_Click);
-            // 
-            // SndHEX
-            // 
-            this.SndHEX.AutoSize = true;
-            this.SndHEX.Location = new System.Drawing.Point(91, 4);
-            this.SndHEX.Name = "SndHEX";
-            this.SndHEX.Size = new System.Drawing.Size(47, 17);
-            this.SndHEX.TabIndex = 3;
-            this.SndHEX.Text = "HEX";
-            this.SndHEX.UseVisualStyleBackColor = true;
-            // 
-            // SndASCII
-            // 
-            this.SndASCII.AutoSize = true;
-            this.SndASCII.Checked = true;
-            this.SndASCII.Location = new System.Drawing.Point(9, 4);
-            this.SndASCII.Name = "SndASCII";
-            this.SndASCII.Size = new System.Drawing.Size(52, 17);
-            this.SndASCII.TabIndex = 2;
-            this.SndASCII.TabStop = true;
-            this.SndASCII.Text = "ASCII";
-            this.SndASCII.UseVisualStyleBackColor = true;
-            // 
-            // SndNewLine
-            // 
-            this.SndNewLine.AutoSize = true;
-            this.SndNewLine.Location = new System.Drawing.Point(9, 27);
-            this.SndNewLine.Name = "SndNewLine";
-            this.SndNewLine.Size = new System.Drawing.Size(74, 17);
-            this.SndNewLine.TabIndex = 4;
-            this.SndNewLine.Text = "发送新行";
-            this.SndNewLine.UseVisualStyleBackColor = true;
-            // 
-            // AutoSend
-            // 
-            this.AutoSend.AutoSize = true;
-            this.AutoSend.Location = new System.Drawing.Point(9, 50);
-            this.AutoSend.Name = "AutoSend";
-            this.AutoSend.Size = new System.Drawing.Size(74, 17);
-            this.AutoSend.TabIndex = 5;
-            this.AutoSend.Text = "自动发送";
-            this.AutoSend.UseVisualStyleBackColor = true;
-            // 
-            // AutoSendDelay
-            // 
-            this.AutoSendDelay.Location = new System.Drawing.Point(89, 47);
-            this.AutoSendDelay.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.AutoSendDelay.Name = "AutoSendDelay";
-            this.AutoSendDelay.Size = new System.Drawing.Size(60, 20);
-            this.AutoSendDelay.TabIndex = 6;
-            this.AutoSendDelay.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            // 
-            // Message
-            // 
-            this.Message.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Message.Location = new System.Drawing.Point(6, 6);
-            this.Message.Name = "Message";
-            this.Message.Size = new System.Drawing.Size(312, 13);
-            this.Message.TabIndex = 0;
-            // 
-            // TxCountShow
-            // 
-            this.TxCountShow.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxCountShow.Location = new System.Drawing.Point(324, 6);
-            this.TxCountShow.Name = "TxCountShow";
-            this.TxCountShow.Size = new System.Drawing.Size(101, 13);
-            this.TxCountShow.TabIndex = 1;
-            this.TxCountShow.Text = "TX: 0 Bytes";
-            // 
-            // RxCountShow
-            // 
-            this.RxCountShow.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.RxCountShow.Location = new System.Drawing.Point(431, 6);
-            this.RxCountShow.Name = "RxCountShow";
-            this.RxCountShow.Size = new System.Drawing.Size(100, 13);
-            this.RxCountShow.TabIndex = 2;
-            this.RxCountShow.Text = "RX: 0 Bytes";
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 489);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(800, 458);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "串口调试助手 By Ping_yi Ver:1.00 Build:2019-05-27";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -419,13 +468,13 @@
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AutoSendDelay)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AutoSendDelay)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -466,6 +515,9 @@
         private System.Windows.Forms.TextBox RxCountShow;
         private System.Windows.Forms.TextBox TxCountShow;
         private System.Windows.Forms.TextBox Message;
+        private System.Windows.Forms.Button btnResetCounter;
+        private System.Windows.Forms.Button btnClearSndBuff;
+        private System.Windows.Forms.CheckBox addNewlineReceved;
     }
 }
 
